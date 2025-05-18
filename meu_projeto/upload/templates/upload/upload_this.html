@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Upload a File</title>
+</head>
+<body>
+    <h1>Awesome you uploaded this file</h1>
+    {% if file_content %}
+    <h2>Contents of {{ filename }}</h2>
+    <pre style="background-color: #f4f4f4; padding: 10px;">{{ file_content }}</pre>
+{% endif %}
+</form>
+</body>
+</html>
+
