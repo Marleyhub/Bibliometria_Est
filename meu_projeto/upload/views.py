@@ -26,7 +26,6 @@ def upload_this(request):
 
         elif uploaded_file.name.endswith('.bib') or uploaded_file.endswith('.bibtex'):
             print('BibTex file received')
-            return render(request, {'filename': uploaded_file.name})
         else:
              print('Unsupported file type')
         
