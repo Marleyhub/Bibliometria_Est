@@ -11,10 +11,10 @@ def upload(request):
 
 def upload_this(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.File)
+        form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             uploaded_file = request.FILES['file']
-            file_content = uploaded_file.read().decode9=('utf-8')
+            file_content = uploaded_file.read().decode('utf-8')
 
     if uploaded_file.name.endswith('.ris'):
         print('Ris file recieved')
