@@ -25,4 +25,4 @@ def upload_this(request):
     else:
         form = UploadFileForm()
 
-    return render(request, 'upload/upload_form.html', {'form': form})
+    return render(request, 'upload/upload_this.html', {'form': form})
