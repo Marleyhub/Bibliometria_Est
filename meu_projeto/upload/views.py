@@ -44,14 +44,21 @@ def upload_this(request):
             saved_file_path = fs.path(saved_filename) 
 
             print(f'File saved at: {saved_file_path}')
-            
+        
+        ## .ris entry
         if uploaded_file.name.endswith('.ris'):
-            print('Ris file recieved')
+            ris_dict = parse_ris(file_path)
+            print(ris_dict)
+
+        ## .bib/.bibtex entry
         elif uploaded_file.name.endswith('.bib') or uploaded_file.endswith('.bibtex'):
-            print('BibTex file received')
+            bib_dict = parse_bibtex(file_path)
+            print(bib_dict)
+
         else:
              print('Unsupported file type')
-        
+
+    ## exception    
     else:
         form = UploadFileForm()
 
@@ -61,3 +68,15 @@ def upload_this(request):
         'file_content': file_content,
         'filename': filename
     })
+
+## parsing .bib and .bibtex files
+def parse_bibtex(file_path):
+    with open (file_path, 'r', encoding='utf-8') as bibfile:
+        bib_database = bibtexparser.load(bibfile)
+    return bib_database.entries
+
+## parsing .ris files
+def parse_ris(file_path):
+    with open (file_path, 'r', encoding='utf-8') as risfile:
+        ris_database = rispy.load(risfile)
+    return ris_database
