@@ -6,6 +6,8 @@ import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
+import rispy, bibtexparser, pandas
+
 ## Home
 def index(request):
     return HttpResponse("Here the user will be capable to import files like .ris and .BibTex")
