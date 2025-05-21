@@ -6,7 +6,8 @@ import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-import rispy, bibtexparser, pandas
+import rispy, bibtexparser
+import pandas as pd
 
 ## Home
 def index(request):
@@ -47,13 +48,13 @@ def upload_this(request):
         
         ## .ris entry
         if uploaded_file.name.endswith('.ris'):
-            ris_dict = parse_ris(file_path)
-            print(ris_dict)
+            ris_dataframe = parse_ris(file_path)
+            print(ris_dataframe)
 
         ## .bib/.bibtex entry
         elif uploaded_file.name.endswith('.bib') or uploaded_file.endswith('.bibtex'):
-            bib_dict = parse_bibtex(file_path)
-            print(bib_dict)
+            bib_dataframe = parse_bibtex(file_path)
+            print(bib_dataframe)
 
         else:
              print('Unsupported file type')
@@ -73,10 +74,13 @@ def upload_this(request):
 def parse_bibtex(file_path):
     with open (file_path, 'r', encoding='utf-8') as bibfile:
         bib_database = bibtexparser.load(bibfile)
-    return bib_database.entries
+        bib_dict = bib_database.entries
+        bib_dataframe = pd.DataFrame(bib_dict)
+    return bib_dataframe
 
 ## parsing .ris files
 def parse_ris(file_path):
     with open (file_path, 'r', encoding='utf-8') as risfile:
         ris_database = rispy.load(risfile)
-    return ris_database
+        ris_dataframe = pd.DataFrame(ris_database)
+    return ris_dataframe
