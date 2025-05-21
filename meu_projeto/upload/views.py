@@ -34,16 +34,7 @@ def upload_this(request):
             uploaded_file = request.FILES['file']
             file_content = uploaded_file.read().decode('utf-8')
             filename = uploaded_file.name
-            file_extension = filename.split('.')[-1].lower()
-
-            upload_dir = os.path.join(settings.MEDIA_ROOT, 'uploads')
-            os.makedirs(upload_dir, exist_ok=True)
-
-            fs = FileSystemStorage(location=upload_dir)
-            saved_filename = fs.save(filename, uploaded_file)
-            saved_file_path = fs.path(saved_filename) 
-
-            print(f'File saved at: {saved_file_path}')
+            saved_file_path = save_file(request, filename, uploaded_file) 
         
         ## .ris entry
         if uploaded_file.name.endswith('.ris'):
@@ -68,6 +59,20 @@ def upload_this(request):
         'file_content': file_content,
         'filename': filename
     })
+
+
+def save_file(request, filename, uploaded_file):
+    file_extension = filename.split('.')[-1].lower()
+    upload_dir = os.path.join(settings.MEDIA_ROOT, 'uploads')
+
+    os.makedirs(upload_dir, exist_ok=True)
+    fs = FileSystemStorage(location=upload_dir)
+    
+    saved_filename = fs.save(filename, uploaded_file)
+    saved_file_path = fs.path(saved_filename) 
+
+    return saved_file_path
+
 
 ## parsing .bib and .bibtex files
 def parse_bibtex(file_path):
