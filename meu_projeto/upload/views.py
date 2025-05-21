@@ -35,7 +35,6 @@ def upload_this(request):
             file_content = uploaded_file.read().decode('utf-8')
             filename = uploaded_file.name
             file_extension = filename.split('.')[-1].lower()
-            ##file_path = f'./media/uploads/{filename}'
 
             upload_dir = os.path.join(settings.MEDIA_ROOT, 'uploads')
             os.makedirs(upload_dir, exist_ok=True)
