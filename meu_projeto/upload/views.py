@@ -35,7 +35,7 @@ def upload_this(request):
             file_content = uploaded_file.read().decode('utf-8')
             filename = uploaded_file.name
             file_extension = filename.split('.')[-1].lower()
-            file_path = f'./media/uploads/{filename}'
+            ##file_path = f'./media/uploads/{filename}'
 
             upload_dir = os.path.join(settings.MEDIA_ROOT, 'uploads')
             os.makedirs(upload_dir, exist_ok=True)
@@ -48,12 +48,12 @@ def upload_this(request):
         
         ## .ris entry
         if uploaded_file.name.endswith('.ris'):
-            ris_dataframe = parse_ris(file_path)
+            ris_dataframe = parse_ris(saved_file_path)
             print(ris_dataframe)
 
         ## .bib/.bibtex entry
         elif uploaded_file.name.endswith('.bib') or uploaded_file.endswith('.bibtex'):
-            bib_dataframe = parse_bibtex(file_path)
+            bib_dataframe = parse_bibtex(saved_file_path)
             print(bib_dataframe)
 
         else:
