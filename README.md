@@ -10,6 +10,4 @@ Running it:
 **************
 Next steps:
 
-3 - inserir try: expect: logica para lidar com erros 
-4 - Testes de estresse nas funções bib_parser e ris_parser
 6 - Criar rotas para Analises Bibliométricas
