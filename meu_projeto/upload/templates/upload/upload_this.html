@@ -5,10 +5,13 @@
     <title>Upload a File</title>
 </head>
 <body>
-    <h1>Awesome you uploaded this file</h1>
+    <form method="post" enctype="multipart/form-data" action="{% url 'analyse_this' %}">
+    {% csrf_token %}
+    <h1>Know choose your analytics</h1>
     {% if file_content %}
     <h2>Contents of {{ filename }}</h2>
     <pre style="background-color: #f4f4f4; padding: 10px;">{{ file_content }}</pre>
+     <button onclick="analyse_this()" type="submit">Cient. Production</button>
 {% endif %}
 </form>
 </body>
