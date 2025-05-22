@@ -9,10 +9,6 @@ from django.core.files.storage import FileSystemStorage
 import rispy, bibtexparser
 import pandas as pd
 
-## Home
-def index(request):
-    return HttpResponse("Here the user will be capable to import files like .ris and .BibTex")
-
 ## upload interface 
 def upload(request):
     return render(request, "upload/upload.html")
