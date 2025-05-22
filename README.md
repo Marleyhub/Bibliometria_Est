@@ -11,3 +11,4 @@ Running it:
 Next steps:
 
 1 - criar funções para analise bibliométrica
+2 - resolver problema to titulos das columas dos arquivos .ris quando transformados em dataFrame
