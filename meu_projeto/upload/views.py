@@ -38,7 +38,6 @@ def upload_this(request):
                 if filename.endswith('.ris'):
                     try:
                         ris_dataframe = parse_ris(saved_file_path)
-                        print(ris_dataframe)
                     except Exception as e:
                         print(f"Error parsing RIS file: {e}")
 
@@ -46,7 +45,6 @@ def upload_this(request):
                 elif filename.endswith('.bib') or filename.endswith('.bibtex'):
                     try:
                         bib_dataframe = parse_bibtex(saved_file_path)
-                        print(bib_dataframe)
                     except Exception as e:
                         print(f"Error parsing BibTeX file: {e}")
 

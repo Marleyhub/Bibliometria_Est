@@ -1,6 +1,7 @@
 asgiref==3.8.1
 bibtexparser==1.4.3
 Django==5.2.1
+networkx==3.4.2
 numpy==2.2.6
 pandas==2.2.3
 pylatexenc==2.10

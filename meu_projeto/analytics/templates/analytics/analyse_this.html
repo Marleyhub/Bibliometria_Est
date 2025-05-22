@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Analise a File</title>
+    <title>Upload a File</title>
 </head>
 <body>
-    <h1>Awesome analised a file</h1>
+    {% csrf_token %}
+    <h1>Know choose your analytics</h1>
+    {% if file_content %}
+    <h2>Graph details of this file</h2>
+    <pre style="background-color: #f4f4f4; padding: 10px;">{{ file_content }}</pre>
+{% endif %}
 </form>
 </body>
 </html>
-
