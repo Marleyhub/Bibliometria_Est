@@ -10,4 +10,5 @@ Running it:
 **************
 Next steps:
 
+1 - fix index.html logic
 6 - Criar rotas para Analises Bibliométricas
