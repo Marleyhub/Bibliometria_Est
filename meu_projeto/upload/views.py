@@ -137,3 +137,43 @@ def parse_ris(file_path):
         print(f"Unexpected error while parsing RIS file: {e}")
 
     return pd.DataFrame()  # Return empty DataFrame on failure
+
+
+def normalize_columns(df): 
+    column_map = {
+        'AU': 'authors',
+        'A1': 'authors',
+        'A2': 'secondary_author',
+        'TI': 'title',
+        'T1': 'title',
+        'PY': 'year',
+        'Y1': 'year',
+        'JO': 'journal',
+        'JF': 'journal',
+        'T2': 'journal',
+        'VL': 'volume',
+        'IS': 'issue',
+        'SP': 'start_page',
+        'EP': 'end_page',
+        'SN': 'issn',
+        'DO': 'doi',
+        'DOI': 'doi',
+        'UR': 'url',
+        'PB': 'publisher',
+        'AB': 'abstract',
+        'N2': 'abstract',
+        'KW': 'keywords',
+    }
+
+    # Convert all column names to uppercase (to match RIS keys)
+    df.columns = [col.upper() for col in df.columns]
+
+    # Rename known columns
+    normalized_columns = {
+        col: column_map.get(col, col.lower())  # map or fallback to lowercase original
+        for col in df.columns
+    }
+
+    df.rename(columns=normalized_columns, inplace=True)
+
+    return df
