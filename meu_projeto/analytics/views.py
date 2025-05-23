@@ -66,4 +66,4 @@ def parse_authors(author_str):
         return[]
     author_str = author_str.replace(' and ', ',')
     # creating a list with no wite spaces and separeted by ','
-    return [author_str.strip() for author in author_str.slipt(',')]
+    return [author_str.strip() for author in author_str.split(',')]
