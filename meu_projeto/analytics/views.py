@@ -6,15 +6,30 @@ from itertools import combinations
 import matplotlib.pyplot as plt
 import os
 
-def author_analytics(request):
-    file_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
-    file_content = "No graph could be generated."
+file_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
+file_content = "No graph could be generated."
 
-    try:
-        if os.path.exists(file_path):
-            df = pd.read_csv(file_path)
-            print(df)
+def validate_path(file_path):
+    if os.path.exists(file_path):
+        df = pd.read_csv(file_path)
+        print(df)
+    else:
+        file_content = f"File does not exist at path: {file_path}"
+    return df
 
+## parsing AU column content to avoid 'and's
+def parse_authors(author_str):
+    if pd.isna(author_str):
+        return[]
+    author_str = author_str.replace(' and ', ',')
+    # creating a list with no wite spaces and separeted by ','
+    return [author_str.strip() for author in author_str.slipt(',')]
+
+
+def author_analytics(request):  
+         
+        df = validate_path(file_path)
+        try:
             if not df.empty and 'AU' in df.columns and 'PY' in df.columns:
                 G = nx.from_pandas_edgelist(df, source='AU', target='PY', edge_attr=True)
                 
