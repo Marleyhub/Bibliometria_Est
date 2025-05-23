@@ -141,36 +141,29 @@ def parse_ris(file_path):
 
 def normalize_columns(df): 
     column_map = {
-        'AU': 'authors',
-        'A1': 'authors',
-        'A2': 'secondary_author',
-        'TI': 'title',
-        'T1': 'title',
-        'PY': 'year',
-        'Y1': 'year',
-        'JO': 'journal',
-        'JF': 'journal',
-        'T2': 'journal',
-        'VL': 'volume',
-        'IS': 'issue',
-        'SP': 'start_page',
-        'EP': 'end_page',
-        'SN': 'issn',
-        'DO': 'doi',
-        'DOI': 'doi',
-        'UR': 'url',
-        'PB': 'publisher',
-        'AB': 'abstract',
-        'N2': 'abstract',
-        'KW': 'keywords',
+    'author': 'AU',
+    'title': 'TI',
+    'journal': 'JO',
+    'booktitle': 'T2',
+    'year': 'PY',
+    'volume': 'VL',
+    'number': 'IS',
+    'pages': 'SP',  # RIS also uses 'EP' for end page
+    'doi': 'DO',
+    'url': 'UR',
+    'abstract': 'AB',
+    'keywords': 'KW',
+    'publisher': 'PB',
+    'editor': 'ED',
+    'type': 'TY'  # Mapped manually from @article, etc.
     }
 
-    # Convert all column names to uppercase (to match RIS keys)
-    df.columns = [col.upper() for col in df.columns]
+    # Convert all column names to lower (to match .bib keys)
+    df.columns = [col.lower() for col in df.columns]
 
     # Rename known columns
     normalized_columns = {
-        col: column_map.get(col, col.lower())  # map or fallback to lowercase original
+        col: column_map.get(col, col.upper())  # map or fallback to upper original
         for col in df.columns
     }
 
