@@ -4,7 +4,8 @@ import pandas as pd
 import networkx as nx
 from itertools import combinations
 import matplotlib.pyplot as plt
-import os
+import os, base64, io
+
 
 file_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
 file_content = "No graph could be generated."
@@ -14,19 +15,41 @@ def author_analytics(request):
          
         df = validate_path(file_path)
         try:
-            if not df.empty and 'AU' in df.columns and 'PY' in df.columns:
-                G = nx.from_pandas_edgelist(df, source='AU', target='PY', edge_attr=True)
-                
-                # Convert the graph to a human-readable format
-                file_content = f"Graph with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges"
-            else:
-                file_content = "DataFrame missing required 'source' and 'target' columns."
+            df['AU'] = df['AU'].apply(parse_authors)
 
+            G = nx.Graph()
+
+            for au in df['AU']:
+                for au1, au2 in combinations(au, 2):
+                    if G.has_edge(au1, au2):
+                        G[au1][au2]['weight'] += 1
+                    else:
+                         G.add_edge(au1, au2, weight=1)
+            
+            pos = nx.spring_layout(G)
+            edges = G.edges(data=True)
+            weights = [data['weight'] for _, _, data in edges]
+
+            plt.figure(figsize=(8, 6))
+            nx.draw(G, pos, with_labels=True, width=weights, edge_color='skyblue',
+            node_color='lightgreen', node_size=1000)
+
+            plt.title("Author Co-occurrence Network")
+            buffer = io.BytesIO()
+            plt.savefig(buffer, format='png')
+            buffer.seek(0)
+
+            # Encode plot to base64 string
+            image_png = buffer.getvalue()
+            graph_base64 = base64.b64encode(image_png).decode('utf-8')
+            buffer.close()
+             
         except Exception as e:
-            file_content = f"Error analyzing DataFrame: {e}"
-
+            print(f"it was not possivel to analyse this data --- Err = {e}")
+            graph_base64 = None
+            
         return render(request, 'analytics/author_analytics.html', {
-        'file_content': file_content,
+        'graph' : graph_base64
 })
 
 def validate_path(file_path):
