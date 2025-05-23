@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Author Co-occurrence Network</title>
+</head>
+<body>
+    <h1>This is your Graph</h1>
+
+    {% if graph %}
+     <img src="data:image/png;base64,{{ graph }}" alt="Author Co-occurrence Network" />
+    {% else %}
+    <p><strong>Error:</strong> Could not generate the graph.</p>
+    {% endif %}
+    
+</body>
+</html>

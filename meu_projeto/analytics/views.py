@@ -26,14 +26,24 @@ def author_analytics(request):
                     else:
                          G.add_edge(au1, au2, weight=1)
             
-            pos = nx.spring_layout(G)
+            pos = nx.spring_layout(G, k=0.5, iterations=50)
+            weights = [G[u][v]['weight'] for u, v in G.edges()]
             edges = G.edges(data=True)
             weights = [data['weight'] for _, _, data in edges]
 
-            plt.figure(figsize=(8, 6))
-            nx.draw(G, pos, with_labels=True, width=weights, edge_color='skyblue',
-            node_color='lightgreen', node_size=1000)
+            plt.figure(figsize=(10, 8))
+            nx.draw(
+                G, pos,
+                with_labels=True,
+                node_color='skyblue',
+                node_size=300,
+                font_size=10,
+                edge_color='gray',
+                width=weights
+            )
 
+            plt.title("Author Co-occurrence Network (Spring Layout)")
+            plt.axis('off')
             plt.title("Author Co-occurrence Network")
             buffer = io.BytesIO()
             plt.savefig(buffer, format='png')
