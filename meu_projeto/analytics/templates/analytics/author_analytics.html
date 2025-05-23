@@ -1,3 +1,5 @@
+{% load static %} 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +10,10 @@
     <h1>This is your Graph</h1>
 
     {% if graph %}
-     <img src="data:image/png;base64,{{ graph }}" alt="Author Co-occurrence Network" />
+     <iframe src="{% static 'author_network.html' %}" width="100%" height="600px" style="border:none;"></iframe>
     {% else %}
     <p><strong>Error:</strong> Could not generate the graph.</p>
     {% endif %}
-    
+
 </body>
 </html>
