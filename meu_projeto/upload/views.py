@@ -99,9 +99,10 @@ def parse_bibtex(file_path):
 
             bib_df = pd.DataFrame(bib_database.entries)
             bib_df.rename(columns=lambda c: c.lower(), inplace=True)
+            bib_df_n = normalize_columns(bib_df)
 
             save_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
-            bib_df.to_csv(save_path, index='false')
+            bib_df_n.to_csv(save_path, index='false')
 
             return bib_df
 
@@ -122,9 +123,8 @@ def parse_ris(file_path):
         with open(file_path, 'r', encoding='utf-8') as risfile:
             ris_database = rispy.load(risfile)
             ris_df = pd.DataFrame(ris_database)
-            ris_df_n = normalize_columns(ris_df)
             save_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
-            ris_df_n.to_csv(save_path, index='false')
+            ris_df.to_csv(save_path, index='false')
             return ris_df
 
     except FileNotFoundError:
