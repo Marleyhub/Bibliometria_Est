@@ -37,12 +37,10 @@ def author_analytics(request):
                 file_content = f"Graph with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges"
             else:
                 file_content = "DataFrame missing required 'source' and 'target' columns."
-        else:
-            file_content = f"File does not exist at path: {file_path}"
 
-    except Exception as e:
-        file_content = f"Error analyzing DataFrame: {e}"
+        except Exception as e:
+            file_content = f"Error analyzing DataFrame: {e}"
 
-    return render(request, 'analytics/author_analytics.html', {
+        return render(request, 'analytics/author_analytics.html', {
         'file_content': file_content,
-    })
+})
