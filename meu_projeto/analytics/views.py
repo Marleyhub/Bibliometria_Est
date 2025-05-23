@@ -12,9 +12,10 @@ def analyse_this(request):
     try:
         if os.path.exists(file_path):
             df = pd.read_csv(file_path)
+            print(df)
 
-            if not df.empty and 'author' in df.columns and 'title' in df.columns:
-                G = nx.from_pandas_edgelist(df, source='author', target='title', edge_attr=True)
+            if not df.empty and 'AU' in df.columns and 'PY' in df.columns:
+                G = nx.from_pandas_edgelist(df, source='AU', target='PY', edge_attr=True)
                 
                 # Convert the graph to a human-readable format
                 file_content = f"Graph with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges"
