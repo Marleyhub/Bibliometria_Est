@@ -10,5 +10,5 @@ Running it:
 **************
 Next steps:
 
-1 - criar funções para analise bibliométrica
-2 - resolver problema to titulos das columas dos arquivos .ris quando transformados em dataFrame
+1 - Estudar networkx source target edges direct and undirect
+2 - criar analise de co-autoria entre publicações
