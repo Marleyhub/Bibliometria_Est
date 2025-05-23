@@ -38,7 +38,6 @@ def author_analytics(request):
             net.save_graph('static/author_network.html')
             graph_created = True
 
-                
         except Exception as e:
             print(f"it was not possivel to analyse this data --- Err = {e}")
             graph_created = False
