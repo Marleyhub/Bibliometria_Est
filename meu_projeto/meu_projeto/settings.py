@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'upload',
     'index',
     'analytics',
+    'static'
 ]
 
 MIDDLEWARE = [

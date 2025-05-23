@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 import pandas as pd
 import networkx as nx
+from pyvis.network import Network
 from itertools import combinations
 import matplotlib.pyplot as plt
 import os, base64, io
@@ -12,7 +13,7 @@ file_content = "No graph could be generated."
 
 
 def author_analytics(request):  
-         
+        graph_created = False
         df = validate_path(file_path)
         try:
             df['AU'] = df['AU'].apply(parse_authors)
@@ -26,49 +27,36 @@ def author_analytics(request):
                     else:
                          G.add_edge(au1, au2, weight=1)
             
-            pos = nx.spring_layout(G, k=0.5, iterations=50)
-            weights = [G[u][v]['weight'] for u, v in G.edges()]
-            edges = G.edges(data=True)
-            weights = [data['weight'] for _, _, data in edges]
+            net = Network(height='600px', width='100%', bgcolor='#ffffff', font_color='black')
+            net.from_nx(G)
 
-            plt.figure(figsize=(10, 8))
-            nx.draw(
-                G, pos,
-                with_labels=True,
-                node_color='skyblue',
-                node_size=300,
-                font_size=10,
-                edge_color='gray',
-                width=weights
-            )
+            # Optional: improve layout
+            net.repulsion(node_distance=200, spring_length=200)
 
-            plt.title("Author Co-occurrence Network (Spring Layout)")
-            plt.axis('off')
-            plt.title("Author Co-occurrence Network")
-            buffer = io.BytesIO()
-            plt.savefig(buffer, format='png')
-            buffer.seek(0)
+            # Save the interactive network as an HTML file
+            os.makedirs('static', exist_ok=True)
+            net.save_graph('static/author_network.html')
+            graph_created = True
 
-            # Encode plot to base64 string
-            image_png = buffer.getvalue()
-            graph_base64 = base64.b64encode(image_png).decode('utf-8')
-            buffer.close()
-             
+                
         except Exception as e:
             print(f"it was not possivel to analyse this data --- Err = {e}")
-            graph_base64 = None
-            
+            graph_created = False
+
         return render(request, 'analytics/author_analytics.html', {
-        'graph' : graph_base64
-})
+        'graph': graph_created 
+        })
 
 def validate_path(file_path):
     if os.path.exists(file_path):
-        df = pd.read_csv(file_path)
-        print(df)
+        try:
+            return pd.read_csv(file_path)
+        except Exception as e:
+            print(f"Error reading CSV: {e}")
+            return None
     else:
-        file_content = f"File does not exist at path: {file_path}"
-    return df
+        print(f"File does not exist at path: {file_path}")
+        return None
 
 ## parsing AU column content to avoid 'and's
 def parse_authors(author_str):
