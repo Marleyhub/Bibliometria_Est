@@ -10,5 +10,4 @@ Running it:
 **************
 Next steps:
 
-1 - Estudar networkx source target edges direct and undirect
 2 - criar analise de co-autoria entre publicações

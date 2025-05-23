@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.conf import settings
 import pandas as pd
 import networkx as nx
+from itertools import combinations
+import matplotlib.pyplot as plt
 import os
 
-
-def analyse_this(request):
+def author_analytics(request):
     file_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
     file_content = "No graph could be generated."
 
@@ -27,6 +28,6 @@ def analyse_this(request):
     except Exception as e:
         file_content = f"Error analyzing DataFrame: {e}"
 
-    return render(request, 'analytics/analyse_this.html', {
+    return render(request, 'analytics/author_analytics.html', {
         'file_content': file_content,
     })
