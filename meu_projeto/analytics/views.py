@@ -19,7 +19,6 @@ def author_analytics(request):
         df = validate_path(file_path)
         try:
             df['AU'] = df['AU'].apply(parse_authors)
-
             G = nx.Graph()
 
             for au in df['AU']:
@@ -43,10 +42,53 @@ def author_analytics(request):
         except Exception as e:
             print(f"it was not possivel to analyse this data --- Err = {e}")
             graph_created = False
-
         return render(request, 'analytics/author_analytics.html', {
         'graph': graph_created 
         })
+
+def cientific_prod(request):
+    df = validate_path(file_path)
+    graph_created = False
+    try:
+        df['AU'] = df['AU'].apply(parse_authors)
+        all_authors = [author for sublist in df['AU'] for author in sublist]
+        print(all_authors)
+        # Count each author's occurrences
+        author_counts = Counter(all_authors)
+        # Print each author and how many times they appear
+        for author, count in author_counts.items():
+            print(f"{author}: {count} publications")
+
+        author_year_counts = defaultdict(int)
+        for _, row in df.iterrows():
+            year = row['PY']
+            for author in row['AU']:
+                author_year_counts[(author, year)] += 1
+
+        data = [{
+            'Author': author,
+            'Year': year,
+            'Publications': count
+        } for (author, year), count in author_year_counts.items()]
+
+        count_df = pd.DataFrame(data)
+
+        # Plot using Plotly Express
+        fig = px.line(count_df, x='Year', y='Publications', color='Author', markers=True,
+                    title="Scientific Production per Year by Author")
+        
+        os.makedirs('static', exist_ok=True)
+        # Save figure as a full HTML file
+        chart_path = 'static/author_production_chart.html'
+        pio.write_html(fig, file=chart_path, auto_open=False)
+        graph_created = True
+
+        return render(request, 'analytics/cientific_prod.html', {
+        'graph': graph_created 
+        })
+        
+    except Exception as e:
+        print(f'faild in cientific_prod, Err == {e}')
 
 def validate_path(file_path):
     if os.path.exists(file_path):
