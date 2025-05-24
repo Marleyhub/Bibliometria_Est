@@ -72,10 +72,18 @@ def cientific_prod(request):
         } for (author, year), count in author_year_counts.items()]
 
         count_df = pd.DataFrame(data)
+        # limit to top N authors to reduce clutter and file size
+        top_authors = count_df['Author'].value_counts().head(10).index
+        filtered_df = count_df[count_df['Author'].isin(top_authors)]
 
         # Plot using Plotly Express
-        fig = px.line(count_df, x='Year', y='Publications', color='Author', markers=True,
-                    title="Scientific Production per Year by Author")
+        fig = px.bar(filtered_df, 
+             x='Year', 
+             y='Publications', 
+             color='Author', 
+             barmode='group',
+             title="Scientific Production per Year by Author")
+
         
         os.makedirs('static', exist_ok=True)
         # Save figure as a full HTML file
