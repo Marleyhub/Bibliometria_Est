@@ -22,6 +22,11 @@
             {% csrf_token %}
             <button type="submit">Scientific Production</button>
         </form>
+        <!-- Trend evolution form Form -->
+        <form method="post" enctype="multipart/form-data" action="{% url 'trend_evolution' %}">
+            {% csrf_token %}
+            <button type="submit">Trend evolution</button>
+        </form>
     {% endif %}
 </body>
 </html>
