@@ -166,3 +166,8 @@ def parse_authors(author_str):
     author_str = author_str.replace(' and ', ',')
     # creating a list with no wite spaces and separeted by ','
     return [a.strip() for a in author_str.split(',') if a.strip()]
+
+def clean_and_tokenize(text):
+    text = text.lower()
+    text = re.sub(r'[^\w\s]', '', text)  # remove punctuation
+    return text.split()
