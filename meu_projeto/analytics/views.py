@@ -49,16 +49,11 @@ def author_analytics(request):
 def cientific_prod(request):
     df = validate_path(file_path)
     graph_created = False
-    try:
-        df['AU'] = df['AU'].apply(parse_authors)
-        all_authors = [author for sublist in df['AU'] for author in sublist]
-        print(all_authors)
-        # Count each author's occurrences
-        author_counts = Counter(all_authors)
-        # Print each author and how many times they appear
-        for author, count in author_counts.items():
-            print(f"{author}: {count} publications")
 
+    try:
+        # parsing " and " out of authors
+        df['AU'] = df['AU'].apply(parse_authors)
+        # white keys goes = 0 by default
         author_year_counts = defaultdict(int)
         for _, row in df.iterrows():
             year = row['PY']
@@ -73,6 +68,7 @@ def cientific_prod(request):
 
         count_df = pd.DataFrame(data)
         # limit to top N authors to reduce clutter and file size
+        count_df['Publications'] = count_df['Publications'].round(1)
         top_authors = count_df['Author'].value_counts().head(10).index
         filtered_df = count_df[count_df['Author'].isin(top_authors)]
 
