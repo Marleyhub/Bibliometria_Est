@@ -6,7 +6,7 @@ from pyvis.network import Network
 from itertools import combinations
 import plotly.express as px
 import plotly.io as pio
-from collections import Counter, defaultdict
+from collections import defaultdict
 import os
 
 
@@ -21,6 +21,7 @@ def author_analytics(request):
             df['AU'] = df['AU'].apply(parse_authors)
             G = nx.Graph()
 
+            # Adding relationship
             for au in df['AU']:
                 for au1, au2 in combinations(au, 2):
                     if G.has_edge(au1, au2):
@@ -51,7 +52,7 @@ def cientific_prod(request):
         # parsing white valued keys and " and " 
         df['AU'] = df['AU'].apply(parse_authors)
         author_year_counts = defaultdict(int)
-        
+
         # couting each publication per year
         for _, row in df.iterrows():
             year = row['PY']
