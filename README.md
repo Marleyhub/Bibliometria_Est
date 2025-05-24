@@ -9,5 +9,3 @@ Running it:
 
 **************
 Next steps:
-
-2 - criar analise de co-autoria entre publicações
