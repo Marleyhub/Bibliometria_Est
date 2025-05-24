@@ -5,15 +5,24 @@
     <title>Upload a File</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data" action="{% url 'author_analytics' %}">
-    {% csrf_token %}
-    <h1>Know choose your analytics</h1>
+    <h1>Now choose your analytics</h1>
+
     {% if file_content %}
-    <h2>Contents of {{ filename }}</h2>
-    <pre style="background-color: #f4f4f4; padding: 10px;">{{ file_content }}</pre>
-     <button onclick="author_analytics()" type="submit">Author Cooncurrency</button>
-{% endif %}
-</form>
+        <h2>Contents of {{ filename }}</h2>
+        <pre style="background-color: #f4f4f4; padding: 10px;">{{ file_content }}</pre>
+
+        <!-- Author Co-occurrence Form -->
+        <form method="post" enctype="multipart/form-data" action="{% url 'author_analytics' %}">
+            {% csrf_token %}
+            <button type="submit">Author Co-occurrence</button>
+        </form>
+
+        <!-- Scientific Production Form -->
+        <form method="post" enctype="multipart/form-data" action="{% url 'cientific_prod' %}">
+            {% csrf_token %}
+            <button type="submit">Scientific Production</button>
+        </form>
+    {% endif %}
 </body>
 </html>
 
