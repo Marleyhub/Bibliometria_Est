@@ -13,7 +13,7 @@ import os, re
 file_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
 file_content = "No graph could be generated."
 
-
+# Matematical analyses
 def author_analytics(request):  
         graph_created = False
         df = validate_path(file_path)
@@ -148,6 +148,7 @@ def trend_evolution(request):
         'graph': graph_created
     })
 
+# parsers
 def validate_path(file_path):
     if os.path.exists(file_path):
         try:
@@ -159,7 +160,6 @@ def validate_path(file_path):
         print(f"File does not exist at path: {file_path}")
         return None
 
-## parsing AU column content to avoid 'and's
 def parse_authors(author_str):
     if pd.isna(author_str):
         return[]
