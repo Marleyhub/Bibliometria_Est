@@ -90,6 +90,64 @@ def cientific_prod(request):
     except Exception as e:
         print(f'faild in cientific_prod, Err == {e}')
 
+def trend_evolution(request):
+    df = validate_path(file_path)
+    graph_created = False
+
+    try:
+        if 'TI' in df.columns and 'PY' in df.columns:
+            df = df[['TI', 'PY']]
+
+            year_keywords = defaultdict(list) 
+
+            for _, row in df.iterrows():
+                year = row['PY']
+                tokens = clean_and_tokenize(row['TI'])
+                year_keywords[year].extend(tokens)
+
+            yearly_counts = {year: Counter(words) for year, words in year_keywords.items()}
+
+            all_counts = Counter()
+            for counts in yearly_counts.values():
+                all_counts.update(counts)
+
+            top_keywords = [kw for kw, _ in all_counts.most_common(10)]
+
+            heatmap_data = []
+            for kw in top_keywords:
+                for year in sorted(yearly_counts):
+                    heatmap_data.append({
+                    "Keyword": kw,
+                    "Year": year,
+                    "Frequency": yearly_counts[year][kw]
+            })
+
+            heatmap_df = pd.DataFrame(heatmap_data)
+
+            fig = px.density_heatmap(
+                heatmap_df,
+                x="Year",
+                y="Keyword",
+                z="Frequency",
+                color_continuous_scale="YlGnBu",
+                title="Keyword Trends by Year (No scikit-learn)"
+            )
+
+            os.makedirs('static', exist_ok=True)
+            chart_path = 'static/trend_evolution.html'
+            fig.write_html(chart_path, include_plotlyjs='cdn')
+            graph_created = True
+        else:
+            print("Columns for trend evolution not found")
+
+    except Exception as e: 
+        print("Thera was an error into evolution logic -- Err: {e}")
+        return graph_created 
+    
+    return render(request, 'analytics/trend_evolution.html', {
+        'graph': graph_created
+    })
+
 def validate_path(file_path):
     if os.path.exists(file_path):
         try:
