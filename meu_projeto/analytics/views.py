@@ -6,8 +6,8 @@ from pyvis.network import Network
 from itertools import combinations
 import plotly.express as px
 import plotly.io as pio
-from collections import defaultdict
-import os
+from collections import defaultdict, Counter
+import os, re
 
 
 file_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
