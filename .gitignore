@@ -47,6 +47,8 @@ Thumbs.db
 dist/
 build/
 
+/static/*.html
+
 # If using pip freeze > requirements.txt
 # (Keep requirements.txt committed!)
 
