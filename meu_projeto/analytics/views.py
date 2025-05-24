@@ -28,13 +28,11 @@ def author_analytics(request):
                     else:
                          G.add_edge(au1, au2, weight=1)
             
+            # Creating chart
             net = Network(height='600px', width='100%', bgcolor='#ffffff', font_color='black')
             net.from_nx(G)
-
-            # Optional: improve layout
             net.repulsion(node_distance=200, spring_length=200)
-
-            # Save the interactive network as an HTML file
+            # Saving chart
             os.makedirs('static', exist_ok=True)
             net.save_graph('static/author_network.html')
             graph_created = True
@@ -49,26 +47,24 @@ def author_analytics(request):
 def cientific_prod(request):
     df = validate_path(file_path)
     graph_created = False
-
     try:
-        # parsing " and " out of authors
+        # parsing white valued keys and " and " 
         df['AU'] = df['AU'].apply(parse_authors)
-        # white keys goes = 0 by default
         author_year_counts = defaultdict(int)
+        
+        # couting each publication per year
         for _, row in df.iterrows():
             year = row['PY']
             for author in row['AU']:
                 author_year_counts[(author, year)] += 1
-
         data = [{
             'Author': author,
             'Year': year,
             'Publications': count
         } for (author, year), count in author_year_counts.items()]
 
+        # setting couting to dataframe
         count_df = pd.DataFrame(data)
-        # limit to top N authors to reduce clutter and file size
-        count_df['Publications'] = count_df['Publications'].round(1)
         top_authors = count_df['Author'].value_counts().head(10).index
         filtered_df = count_df[count_df['Author'].isin(top_authors)]
 
@@ -79,10 +75,9 @@ def cientific_prod(request):
              color='Author', 
              barmode='group',
              title="Scientific Production per Year by Author")
-
         
+        # saving fig
         os.makedirs('static', exist_ok=True)
-        # Save figure as a full HTML file
         chart_path = 'static/author_production_chart.html'
         pio.write_html(fig, file=chart_path, include_plotlyjs='cdn', auto_open=False)
         graph_created = True
