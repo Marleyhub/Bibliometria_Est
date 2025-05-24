@@ -4,8 +4,10 @@ import pandas as pd
 import networkx as nx
 from pyvis.network import Network
 from itertools import combinations
-import matplotlib.pyplot as plt
-import os, base64, io
+import plotly.express as px
+import plotly.io as pio
+from collections import Counter, defaultdict
+import os
 
 
 file_path = os.path.join(settings.MEDIA_ROOT, 'parsed_data.csv')
