@@ -80,7 +80,7 @@ def cientific_prod(request):
         os.makedirs('static', exist_ok=True)
         # Save figure as a full HTML file
         chart_path = 'static/author_production_chart.html'
-        pio.write_html(fig, file=chart_path, auto_open=False)
+        pio.write_html(fig, file=chart_path, include_plotlyjs='cdn', auto_open=False)
         graph_created = True
 
         return render(request, 'analytics/cientific_prod.html', {
