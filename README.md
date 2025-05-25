@@ -1,5 +1,7 @@
 Running it:
 
+Python 3.10.9
+
 1 - run "pip install -r requirements.txt" to manage packges and dependencies
 2 - App running on "http://localhost:8000" (route for index)
 3 - open the virtual enviroment "venv\Scripts\activate"
