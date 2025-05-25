@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trend Evolution</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        body {
+            margin: 0;
+            padding: 3rem 1rem;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #90caf9;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.6);
+        }
+
+        .error {
+            color: #ef5350;
+            background-color: #2a2a2a;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Evolution of Themes by Year</h1>
+    
+    {% if graph %}
+        <iframe src="{% static 'trend_evolution.html' %}"></iframe>
+    {% else %}
+        <p class="error"><strong>Error:</strong> Could not generate the graph.</p>
+    {% endif %}
+</body>
+</html>
