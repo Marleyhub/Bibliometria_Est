@@ -5,62 +5,132 @@
     <meta charset="UTF-8">
     <title>Research Trends Dashboard</title>
     <style>
+        /* Base styles */
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
         }
 
+        /* Top-level container */
         .container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 50px;
-            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
         }
 
-        .side-img {
-            width: 2000px;
-            height: 200px;
-            object-fit: contain;
-            border: 1px solid #ccc;
-            background: #fff;
+        /* Intro */
+        .intro h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #90caf9;
         }
 
-        .main-content {
+        .intro p {
+            font-size: 1.1rem;
+            color: #cfd8dc;
+            margin-bottom: 2rem;
+        }
+
+        /* Image sections */
+        .image-section {
+            margin-bottom: 3rem;
+        }
+
+        .image-container {
             text-align: center;
-            max-width: 600px;
         }
 
-        .main-content h1 {
-            margin-bottom: 20px;
-            font-size: 2em;
-            color: #333;
+        .full-width-img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
         }
 
-        .main-content p {
-            font-size: 1.1em;
-            color: #555;
+        .img-description {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            color: #b0bec5;
+        }
+
+        /* Button */
+        .cta {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            background-color: #1e88e5;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #1565c0;
+        }
+
+        /* Scrollbar styling for the browser’s scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Main content -->
-    <div class="main-content">
-        <h1>Research Trends Dashboard</h1>
-        <p>
-            This dashboard allows you to analyze research trends over time by processing .bib or .ris academic references.
-            Generate heatmaps, author publication graphs, and keyword evolution charts easily.
-        </p>
-    </div>
-    <!-- Right image -->
-    <img src="{% static 'img/img1.png' %}" alt="Image 2" class="side-img">
-    <!-- Left image -->
-    <img src="{% static 'img/img2.png' %}" alt="Image 1" class="side-img">
-</div>
+        <!-- Introduction -->
+        <section class="intro">
+            <h1>Research Trends Dashboard</h1>
+            <p>
+                Analyze research trends over time using academic references in .bib or .ris format.
+                Visualize data through heatmaps, author publication graphs, and keyword evolution charts.
+            </p>
+        </section>
 
+        <!-- Image 1 with description -->
+        <section class="image-section">
+            <div class="image-container">
+                <img src="{% static 'img/img1.png' %}" alt="Heatmap of research publication distribution" class="full-width-img">
+                <p class="img-description">
+                Explore co-authorship networks to uncover patterns of collaboration and the distribution of scientific thought across researchers.
+                This analysis highlights how ideas and expertise are shared, revealing influential contributors, 
+                research clusters, and interdisciplinary connections within the academic community.</p>
+            </div>
+        </section>
+        <!-- Image 2 with description -->
+        <section class="image-section">
+            <div class="image-container">
+                <img src="{% static 'img/img2.png' %}" alt="Graph showing keyword evolution" class="full-width-img">
+                <p class="img-description">
+                    Track keyword evolution over time to identify emerging research trends and shifting academic focus.
+                    This analysis reveals how the prominence of specific terms changes across years, 
+                    offering insights into developing topics, emerging fields, and the trajectory of scholarly discourse.
+                </p>
+            </div>
+        </section>
+
+        <!-- Button -->
+        <section class="cta">
+            <a href="{% url 'begin_upload' %}" class="button">Begin Analytics</a>
+        </section>
+    </div>
 </body>
 </html>
