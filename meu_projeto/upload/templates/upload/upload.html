@@ -1,17 +1,116 @@
+{% load static %} 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>Upload a File</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .upload-container {
+            text-align: center;
+            background-color: #1e1e1e;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+            color: #90caf9;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .file-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2a2a2a;
+            padding: 1.5rem;
+            border: 2px dashed #555;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .file-label:hover {
+            background-color: #333;
+        }
+
+        .file-label i {
+            font-size: 2.5rem;
+            color: #64b5f6;
+            margin-bottom: 0.5rem;
+        }
+
+        #file-name {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            color: #b0bec5;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        button {
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            background-color: #1e88e5;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1565c0;
+        }
+    </style>
+    <!-- Font Awesome for file icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Upload a File</h1>
+<div class="upload-container">
+    <h1>Upload Your Reference File</h1>
     <form method="post" enctype="multipart/form-data" action="{% url 'upload_this' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="file" name="file" required />
-    <button type="submit">Upload</button>
-</form>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label class="file-label">
+            <i class="fas fa-file-upload"></i>
+            Choose a file
+            <input type="file" name="file" id="fileInput" required onchange="showFileName(this)">
+            <div id="file-name">No file selected</div>
+        </label>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+
+<script>
+    function showFileName(input) {
+        const fileName = input.files.length > 0 ? input.files[0].name : "No file selected";
+        document.getElementById('file-name').textContent = fileName;
+    }
+</script>
 </body>
 </html>
-
