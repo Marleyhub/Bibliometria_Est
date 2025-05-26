@@ -172,6 +172,9 @@ def parse_authors(author_str):
     return [a.strip() for a in author_str.split(',') if a.strip()]
 
 def clean_and_tokenize(text):
+    stopwords = {'to','for','in','at','while','on','de','com','no','na','para'}
     text = text.lower()
     text = re.sub(r'[^\w\s]', '', text)  # remove punctuation
-    return text.split()
+    tokens = text.split()
+    tokens = [word for word in tokens if word not in stopwords]
+    return tokens
