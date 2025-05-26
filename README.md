@@ -13,9 +13,11 @@ Project using Python 3.10.9
 
 *********************************************************************************************
 
-    🌐 URL Routing Overview — Django Project
+## 🌐 URL Routing Overview — Django Project
 
-    This project is structured into multiple Django apps, each with its own URL configuration. The main URL dispatcher connects to each app, which handles specific functionalities such as home display, file uploads, and analytics.
+    This project is structured into multiple Django apps, each with its own URL configuration.
+    The main URL dispatcher connects to each app, which handles specific functionalities such 
+    as home display, file uploads, and analytics.
 
 
 ## 🔁 General Flow
@@ -29,19 +31,18 @@ Project using Python 3.10.9
     Views handle the request and returns a HTML templates.
 
 ## 🏠 index/urls.py
-    / → Main index or landing page
-    /begin_upload → Redirects to upload process
+    - / → Main index or landing page
+    - /begin_upload → Redirects to upload process
 
 ## 📂 Project Structure
+    - index/: Home and navigation
+    - upload/: File uploads
+    - analytic/: Data visualization
 
-- **index/**: Home and navigation
-- **upload/**: File uploads
-- **analytic/**: Data visualization
-
-    📊 analytic/urls.py
-    /analytic/author_analytics → Co-authorship graph
-    /analytic/cientific_prod → Scientific output analytics
-    /analytic/trend_evolution → Time-based evolution of research trends
+## 📊 analytic/urls.py
+    - /analytic/author_analytics → Co-authorship graph
+    - /analytic/cientific_prod → Scientific output analytics
+    - /analytic/trend_evolution → Time-based evolution of research trends
 
 
 
