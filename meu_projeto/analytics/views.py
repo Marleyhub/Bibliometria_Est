@@ -123,8 +123,9 @@ def trend_evolution(request):
                     "Keyword": kw,
                     "Year": year,
                     "Frequency": yearly_counts[year][kw]
-            })
+                    })
             heatmap_df = pd.DataFrame(heatmap_data)
+            print(heatmap_df)
 
             # creating heat map
             fig = px.density_heatmap(
@@ -172,7 +173,7 @@ def parse_authors(author_str):
     return [a.strip() for a in author_str.split(',') if a.strip()]
 
 def clean_and_tokenize(text):
-    stopwords = {'to','for','in','at','while','on','de','com','no','na','para'}
+    stopwords = {'from', 'and','under','an', 'of', 'the','to','for','in','at','while','on','it','i','de','com','no','na','para','e', 'o', 'da', 'do', 'a', 'dos', 'das', 'um', 'em'}
     text = text.lower()
     text = re.sub(r'[^\w\s]', '', text)  # remove punctuation
     tokens = text.split()
