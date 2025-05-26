@@ -133,7 +133,7 @@ def trend_evolution(request):
                 y="Keyword",
                 z="Frequency",
                 color_continuous_scale=px.colors.diverging.RdYlGn[::-1],
-                title="Keyword Trends by Year (No scikit-learn)"
+                title="Keyword Trends by Year"
             )
 
             #saving it to static
