@@ -34,7 +34,7 @@ Project using Python 3.10.9
     - upload/: File uploads
     - analytics/: Data visualization
 
-## 🏠 index/urls.py
+    🏠 index/urls.py
     - /: Landing page
     - /begin_upload:  Redirects to upload process
 
