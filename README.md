@@ -33,9 +33,11 @@ Project using Python 3.10.9
     / → Main index or landing page
     /begin_upload → Redirects to upload process
 
-    📁 upload/urls.py
-    /upload/ → Displays file upload form
-    /upload/upload_this → Receives and processes uploaded data
+    ## 📂 Project Structure
+
+    - **index/**: Home and navigation
+    - **upload/**: File uploads
+    - **analytic/**: Data visualization
 
     📊 analytic/urls.py
     /analytic/author_analytics → Co-authorship graph
