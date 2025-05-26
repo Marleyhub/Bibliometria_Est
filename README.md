@@ -10,8 +10,7 @@ Project using Python 3.10.9
 4 - run "python manage.py runserver"
 5 - App running on "http://localhost:8000" (route for index)
 
-
-************************************analitics.view() 
+ 
 🌐 URL Routing Overview — Django Project
 
 This project is structured into multiple Django apps, each with its own URL configuration. The main URL dispatcher connects to each app, which handles specific functionalities such as home display, file uploads, and analytics.
