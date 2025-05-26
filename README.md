@@ -34,9 +34,9 @@ Project using Python 3.10.9
 
 ## 📂 Project Structure
 
-    - **index/**: Home and navigation
-    - **upload/**: File uploads
-    - **analytic/**: Data visualization
+- **index/**: Home and navigation
+- **upload/**: File uploads
+- **analytic/**: Data visualization
 
     📊 analytic/urls.py
     /analytic/author_analytics → Co-authorship graph
