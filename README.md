@@ -11,8 +11,6 @@ Project using Python 3.10.9
     4 - run "python manage.py runserver"
     5 - App running on "http://localhost:8000" (route for index)
 
-***************************************************************************************************
-
 ## 🌐 URL Routing Overview — Django Project
 
     This project is structured into multiple Django apps, each with its own URL configuration.
@@ -34,6 +32,7 @@ Project using Python 3.10.9
     - upload/: File uploads
     - analytics/: Data visualization
 
+## 🔹 URLS CONF
     🏠 index/urls.py
     - /: Landing page
     - /begin_upload:  Redirects to upload process
@@ -46,8 +45,6 @@ Project using Python 3.10.9
     - /analytic/author_analytics: Co-authorship graph
     - /analytic/cientific_prod: Scientific output analytics
     - /analytic/trend_evolution: Time-based evolution of research trends
-
-**********************************************************************************************
 
 ## 📁 upload App — Function Reference (view.py)
 
