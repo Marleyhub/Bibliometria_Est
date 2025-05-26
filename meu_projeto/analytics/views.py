@@ -96,23 +96,26 @@ def trend_evolution(request):
 
     try:
         if 'TI' in df.columns and 'PY' in df.columns:
+            # take out only columns needed
             df = df[['TI', 'PY']]
-
             year_keywords = defaultdict(list) 
 
+            # Make titles into keywords in a list dictionary
             for _, row in df.iterrows():
                 year = row['PY']
                 tokens = clean_and_tokenize(row['TI'])
                 year_keywords[year].extend(tokens)
 
+            # List with year and counts for each word
             yearly_counts = {year: Counter(words) for year, words in year_keywords.items()}
 
+            # Returns a list only with the 7 most communs words
             all_counts = Counter()
             for counts in yearly_counts.values():
                 all_counts.update(counts)
-
-            top_keywords = [kw for kw, _ in all_counts.most_common(10)]
-
+            top_keywords = [kw for kw, _ in all_counts.most_common(7)]
+           
+            # orginizing data of frequencies of word by year
             heatmap_data = []
             for kw in top_keywords:
                 for year in sorted(yearly_counts):
@@ -121,18 +124,19 @@ def trend_evolution(request):
                     "Year": year,
                     "Frequency": yearly_counts[year][kw]
             })
-
             heatmap_df = pd.DataFrame(heatmap_data)
 
+            # creating heat map
             fig = px.density_heatmap(
                 heatmap_df,
                 x="Year",
                 y="Keyword",
                 z="Frequency",
-                color_continuous_scale="YlGnBu",
+                color_continuous_scale=px.colors.diverging.RdYlGn[::-1],
                 title="Keyword Trends by Year (No scikit-learn)"
             )
 
+            #saving it to static
             os.makedirs('static', exist_ok=True)
             chart_path = 'static/trend_evolution.html'
             fig.write_html(chart_path, include_plotlyjs='cdn')
