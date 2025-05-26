@@ -18,9 +18,8 @@ Project using Python 3.10.9
     This project is structured into multiple Django apps, each with its own URL configuration. The main URL dispatcher connects to each app, which handles specific functionalities such as home display, file uploads, and analytics.
 
 
-    🔁 General Flow
+## 🔁 General Flow
     User visits a URL in the browser
-
     Django's root index/ loads http://localhost:8000 includes routes for each app:
 
     upload/
@@ -29,13 +28,13 @@ Project using Python 3.10.9
     Each app has its own urls.py, which maps specific paths to views (functions).
     Views handle the request and returns a HTML templates.
 
-    🏠 index/urls.py
+## 🏠 index/urls.py
     / → Main index or landing page
     /begin_upload → Redirects to upload process
 
-    ## 📂 Project Structure
+## 📂 Project Structure
 
-- **index/**: Home and navigation
+    - **index/**: Home and navigation
     - **upload/**: File uploads
     - **analytic/**: Data visualization
 
