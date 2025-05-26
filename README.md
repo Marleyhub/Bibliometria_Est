@@ -35,7 +35,7 @@ Project using Python 3.10.9
 
     ## 📂 Project Structure
 
-    - **index/**: Home and navigation
+- **index/**: Home and navigation
     - **upload/**: File uploads
     - **analytic/**: Data visualization
 
