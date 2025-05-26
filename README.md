@@ -1,6 +1,5 @@
 
-Project using Python 3.10.9
-Projetc using Django 5.2.1
+Project using --> Python 3.10.9 | Django 5.2.1
 
 ***************************************************************************************************
 ## ⚙️ Install it
