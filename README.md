@@ -12,34 +12,36 @@ Project using Python 3.10.9
 
 
 ************************************analitics.view() 
-                                     
-📊 author_analytics View — Co-authorship Network Analysis
+🌐 URL Routing Overview — Django Project
 
-🔍 Overview
-This Django view analyzes a dataset to create a co-authorship graph based on the AU (Author) column of the input data. It generates an interactive HTML graph showing author collaborations.
+This project is structured into multiple Django apps, each with its own URL configuration. The main URL dispatcher connects to each app, which handles specific functionalities such as home display, file uploads, and analytics.
 
-    ⚙️ What It Does
-    Loads the dataset using validate_path(file_path)
-    Parses authors using parse_authors()
-    Builds a graph with networkx where authors are nodes and co-authorships are edges
-    Visualizes the graph with pyvis
-    Saves the result to static/author_network.html
-    Renders a template indicating if the graph was successfully created
+🔁 General Flow
+User visits a URL in the browser
 
-    🛠 Requirements
-    Install required packages:
-    pip install networkx pyvis pandas
+Django's root index/ loads http://localhost:8000 includes routes for each app:
 
-    📁 Expected Input
-    A dataset with an AU column (authors list)
-    A valid file path from validate_path()
+index/
+upload/
+analytic/
 
-    🧪 Error Handling
-    If processing fails, an error is printed and the template receives 'graph': False.
+Each app has its own urls.py, which maps specific paths to views (functions).
+Views handle the request and returns a HTML templates.
 
-    📄 Template
-    Renders: analytics/author_analytics.html
-    Context: { 'graph': True or False }
+🏠 index/urls.py
+/ → Main index or landing page
+/begin_upload → Redirects to upload process
 
-    ✅ Example Route
-    path('author-analytics/', author_analytics, name='author_analytics'),
+📁 upload/urls.py
+/upload/ → Displays file upload form
+/upload/upload_this → Receives and processes uploaded data
+
+📊 analytic/urls.py
+/analytic/author_analytics → Co-authorship graph
+/analytic/cientific_prod → Scientific output analytics
+/analytic/trend_evolution → Time-based evolution of research trends
+
+
+
+
+
